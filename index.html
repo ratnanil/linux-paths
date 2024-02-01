@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src="script.js"></script> -->
+  </head>
+  <body>
+    
+
+    <label for="path">Widows Path:</label>
+    <input type="text" id="path" name="path">
+
+    <button id="go" onclick="run()">Go!</button>
+
+    <div id="linuxpath"></div>
+
+
+    <h3>Replacements</h3>
+    <input class="replace from" type="text" id="replacefrom1" value="S:\pools\n"><input class="replace to" type="text" id="replaceto1" value="/home/rata/zhaw-laufwerke/pools-n"> <br>
+    <input class="replace from" type="text" id="replacefrom2" value="S:\public\staff"><input class="replace to" type="text" id="replaceto2" value="/home/rata/zhaw-laufwerke/staff"> <br>
+    <!-- <input class="replace from" type="text" id="replacefrom3" value=""><input class="replace to" type="text" id="replaceto3" value="/home/rata/zhaw-laufwerke/staff-rata"> <br> -->
+    <!-- <input class="replace from" type="text" id="replacefrom4" value=""><input class="replace to" type="text" id="replaceto4" value=""> <br>
+    <input class="replace from" type="text" id="replacefrom5" value=""><input class="replace to" type="text" id="replaceto5" value=""> <br>
+    <input class="replace from" type="text" id="replacefrom6" value=""><input class="replace to" type="text" id="replaceto6" value=""> <br>
+    <input class="replace from" type="text" id="replacefrom7" value=""><input class="replace to" type="text" id="replaceto7" value=""> <br> -->
+
+
+    <script>
+
+        function linuxize(x){
+            return x.split("\\").join("/")
+        }
+
+        // Function to replace strings in the original string
+        function replaceStrings(original, searchArray, replaceArray) {
+            for (var i = 0; i < searchArray.length; i++) {
+                original = original.replace(new RegExp(searchArray[i], 'g'), replaceArray[i]);
+            }
+            return original;
+        }
+
+
+        function run(){
+            var windowspath = document.getElementById("path").value
+
+            var from_values_collection = document.getElementsByClassName("replace from")
+            var to_values_collection = document.getElementsByClassName("replace to")
+            var from_values = []
+            var to_values = []
+
+            Array.prototype.forEach.call(from_values_collection, function (el) {
+                var el2 = linuxize(el.value)
+                from_values.push(el2)
+            });
+
+            Array.prototype.forEach.call(to_values_collection, function (el) {
+                var el2 = linuxize(el.value)
+                to_values.push(el2)
+            });
+
+            
+
+            var linuxpath = linuxize(windowspath)
+
+            var linuxpath2 = replaceStrings(linuxpath, from_values, to_values);
+            
+
+            document.getElementById("linuxpath").innerHTML = linuxpath2
+        }
+        console.log(linuxpath2)
+        // console.log(linuxpath)
+    </script>
+  </body>
+</html>
