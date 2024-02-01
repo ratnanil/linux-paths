@@ -1,35 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
-    <title>title</title>
+    <title>Linux Paths</title>
     <link rel="stylesheet" href="style.css">
     <!-- <script src="script.js"></script> -->
-  </head>
-  <body>
-    
+</head>
 
-    <label for="path">Widows Path:</label>
-    <input type="text" id="path" name="path">
+<body>
 
-    <button id="go" onclick="run()">Go!</button>
+    <div id="input">
+        <button class="button" id="go" onclick="run()" autocomplete="on">Go!</button>
 
-    <div id="linuxpath"></div>
+        <input type="text" id="path" value="Enter windows path" class="path">
+
+        <button class="button" id="copy" onclick="copy()">Copy Text</button>
+
+        <input type="text" id="linuxpath" name="linuxpath" value="Enter linux path" class="path">
+    </div>
 
 
-    <h3>Replacements</h3>
-    <input class="replace from" type="text" id="replacefrom1" value="S:\pools\n"><input class="replace to" type="text" id="replaceto1" value="/home/rata/zhaw-laufwerke/pools-n"> <br>
-    <input class="replace from" type="text" id="replacefrom2" value="S:\public\staff"><input class="replace to" type="text" id="replaceto2" value="/home/rata/zhaw-laufwerke/staff"> <br>
-    <!-- <input class="replace from" type="text" id="replacefrom3" value=""><input class="replace to" type="text" id="replaceto3" value="/home/rata/zhaw-laufwerke/staff-rata"> <br> -->
-    <!-- <input class="replace from" type="text" id="replacefrom4" value=""><input class="replace to" type="text" id="replaceto4" value=""> <br>
-    <input class="replace from" type="text" id="replacefrom5" value=""><input class="replace to" type="text" id="replaceto5" value=""> <br>
-    <input class="replace from" type="text" id="replacefrom6" value=""><input class="replace to" type="text" id="replaceto6" value=""> <br>
-    <input class="replace from" type="text" id="replacefrom7" value=""><input class="replace to" type="text" id="replaceto7" value=""> <br> -->
+    <!-- <div id="linuxpath"></div> -->
+
+
+
+
+
+
+    <h3>Replace the following prefixes</h3>
+
+    <div id="replace">
+        <input class="replace from" type="text" id="replacefrom1" value="S:\pools\n">
+        <input class="replace to" type="text" id="replaceto1" value="/home/rata/zhaw-laufwerke/pools-n">
+        <input class="replace from" type="text" id="replacefrom2" value="S:\public\staff">
+        <input class="replace to" type="text" id="replaceto2" value="/home/rata/zhaw-laufwerke/staff">
+    </div>
 
 
     <script>
 
-        function linuxize(x){
+        function linuxize(x) {
             return x.split("\\").join("/")
         }
 
@@ -42,7 +53,7 @@
         }
 
 
-        function run(){
+        function run() {
             var windowspath = document.getElementById("path").value
 
             var from_values_collection = document.getElementsByClassName("replace from")
@@ -60,17 +71,27 @@
                 to_values.push(el2)
             });
 
-            
+
 
             var linuxpath = linuxize(windowspath)
 
             var linuxpath2 = replaceStrings(linuxpath, from_values, to_values);
-            
 
-            document.getElementById("linuxpath").innerHTML = linuxpath2
+
+            document.getElementById("linuxpath").value = linuxpath2
         }
-        console.log(linuxpath2)
-        // console.log(linuxpath)
+
+        function copy() {
+            // Get the text field
+            var copyText = document.getElementById("linuxpath").value;
+
+            // Copy the text inside the text field
+            navigator.clipboard.writeText(copyText);
+
+            // Alert the copied text
+            // alert("Copied the text: " + copyText);
+        }
     </script>
-  </body>
+</body>
+
 </html>
