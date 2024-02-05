@@ -28,13 +28,19 @@
 
 
 
-    <h3>Replace the following prefixes</h3>
+    <h3>Replace the following prefixes with their corresponding local paths</h3>
+
 
     <div id="replace">
         <input class="replace from" type="text" id="replacefrom1" value="S:\pools\n">
         <input class="replace to" type="text" id="replaceto1" value="/home/rata/zhaw-laufwerke/pools-n">
-        <input class="replace from" type="text" id="replacefrom2" value="S:\public\staff">
-        <input class="replace to" type="text" id="replaceto2" value="/home/rata/zhaw-laufwerke/staff">
+
+        <input class="replace from" type="text" id="replacefrom2" value="\\shared.zhaw.ch\shared$\pools\n">
+        <input class="replace to" type="text" id="replaceto2" value="/home/rata/zhaw-laufwerke/pools-n">
+        
+        <input class="replace from" type="text" id="replacefrom3" value="S:\public\staff">
+        <input class="replace to" type="text" id="replaceto3" value="/home/rata/zhaw-laufwerke/staff">
+       
     </div>
 
 
@@ -47,7 +53,8 @@
         // Function to replace strings in the original string
         function replaceStrings(original, searchArray, replaceArray) {
             for (var i = 0; i < searchArray.length; i++) {
-                original = original.replace(new RegExp(searchArray[i], 'g'), replaceArray[i]);
+                // var original = original.replace(new RegExp(searchArray[i], 'g'), replaceArray[i]);
+                original = original.replace(searchArray[i], replaceArray[i])
             }
             return original;
         }
@@ -73,12 +80,12 @@
 
 
 
-            var linuxpath = linuxize(windowspath)
+            var linuxpath_string = linuxize(windowspath)
 
-            var linuxpath2 = replaceStrings(linuxpath, from_values, to_values);
+            var linuxpath_string2 = replaceStrings(linuxpath_string, from_values, to_values);
 
 
-            document.getElementById("linuxpath").value = linuxpath2
+            document.getElementById("linuxpath").value = linuxpath_string2
         }
 
         function copy() {
